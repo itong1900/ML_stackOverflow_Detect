@@ -27,7 +27,7 @@ library(caret)
 ## load the data, and a quick view of data, the data is consisted of Title, Body, score, we'll mainly dig in to Title and Body and infer score
 data = read.csv("ggplot2questions2016_17.csv", sep = ",", stringsAsFactors = FALSE)
 clean_data = data
-head(data,5)
+head(data,2)
 ```
 
 =========
