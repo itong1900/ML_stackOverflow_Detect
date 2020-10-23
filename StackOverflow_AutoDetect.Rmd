@@ -1,0 +1,88 @@
+---
+title: "StackOverflow_AutoDetect"
+author: "Yitong Chen"
+date: "10/23/2020"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(tm)
+library(MASS)
+library(rpart)
+library(boot)
+library(SnowballC)
+library(wordcloud)
+library(caTools)
+library(dplyr)
+library(rpart.plot)
+library(randomForest)
+library(caret)
+```
+
+```{r}
+## load the data, and a quick view of data, the data is consisted of Title, Body, score, we'll mainly dig in to Title and Body and infer score
+data = read.csv("ggplot2questions2016_17.csv", sep = ",", stringsAsFactors = FALSE)
+clean_data = data
+head(data,5)
+```
+
+=========
+## Data Cleaning
+==========
+Let's start with Data Cleaning 
+
+i)   remove <html> tag, as it's not meaningful in prediction and add unecessary noise <br/>
+ii)  remove $\n \t$   <br/>
+iii) all text convert to lower case  <br/>
+iv)  remove puntunctuation    <br/>
+v)   remove stopwords(more details will be given at that step)   <br/>
+vi)  stem the documents      <br/>
+
+```{r}
+## doing i, ii
+clean_data$Body = gsub("<.*?>", "",clean_data$Body)
+clean_data$Body = gsub("[\n\t]", "", clean_data$Body)
+```
+
+```{r}
+## before going to next steps, convert all body to corpus for easier analysis
+corpusBody = Corpus(VectorSource(clean_data$Body))#create corpus
+```
+
+```{r, message=FALSE, warning=FALSE}
+## step iii to lower
+corpusBody = tm_map(corpusBody, tolower)#to lower case
+## step iv remove punctuation
+corpusBody = tm_map(corpusBody, removePunctuation)#remove punctuation
+```
+
+
+From Wikipedia, Stop words are defined as ""In computing, stop words are words which are filtered out before or after processing of natural language data." In our case, we'll remove top 10 stop words in English, as well as "ggplot" and "ggplot2" since they are over common in this topic
+```{r, warning=FALSE, message=FALSE}
+## step v 
+stopwords("english")[1:10] # find top stopwords
+length(stopwords("english"))
+corpusBody = tm_map(corpusBody, removeWords, c("ggplot2","ggplot", stopwords("english")))
+```
+
+Also from Wikipedia, word steming is defined as "In linguistics, a stem is a part of a word used with slightly different meanings and would depend on the morphology of the language in question. In Athabaskan linguistics, for example, a verb stem is a root that cannot appear on its own, and that carries the tone of the word". We'll apply the steming to the corpusBody as our last data cleaning process.
+```{r, warning=FALSE, message=FALSE}
+## step vi stem the documents
+corpusBody = tm_map(corpusBody, stemDocument)
+```
+
+```{r}
+## Finally, as an example, let's look at the how the body of our first row are finally converted 
+strwrap(corpusBody[[1]])
+```
+
+
+
+
+
+
+
