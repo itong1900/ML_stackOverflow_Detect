@@ -30,10 +30,9 @@ clean_data = data
 head(data,2)
 ```
 
-=========
-## Data Cleaning
-==========
-Let's start with Data Cleaning 
+## Data Cleaning <br/>
+
+Let's start with Data Cleaning <br/>
 
 i)   remove <html> tag, as it's not meaningful in prediction and add unecessary noise <br/>
 ii)  remove $\n \t$   <br/>
@@ -81,9 +80,9 @@ strwrap(corpusBody[[1]])
 ```
 
 
-=========
+
 ## data processing
-==========
+
 
 
 

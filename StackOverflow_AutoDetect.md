@@ -25,7 +25,10 @@
     ## 1     3
     ## 2     3
 
-========= \#\# Data Cleaning ========== Let’s start with Data Cleaning
+Data Cleaning <br/>
+-------------------
+
+Let’s start with Data Cleaning <br/>
 
 1.  remove
     <html>
@@ -89,4 +92,5 @@ to the corpusBody as our last data cleaning process.
     ## [5] "geomlineaesi estim group area color area geompointaesi estim x date"    
     ## [6] "geomribbonaesymin lower ymax upper"
 
-========= \#\# data processing ==========
+data processing
+---------------
