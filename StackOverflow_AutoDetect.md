@@ -252,7 +252,8 @@ Analysis and Model selection <br/><br/>
     ##    0    1 
     ## 1137 1103
 
-    paste("Baseline Model Accuracy: ", confusion_m[[1]]/ sum(confusion_m))  
+    base_acc = confusion_m[[1]]/ sum(confusion_m)
+    paste("Baseline Model Accuracy: ", base_acc)  
 
     ## [1] "Baseline Model Accuracy:  0.507589285714286"
 
@@ -268,20 +269,24 @@ performs best among all, achieving accuracy, TPR, FPR as followed
 
     ##    PredictRF
     ##       0   1
-    ##   0 638 499
-    ##   1 525 578
+    ##   0 640 497
+    ##   1 512 591
 
-    paste("Random Forest Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
+    rf_acc = (confusion_m[1] + confusion_m[4])/sum(confusion_m)
+    rf_TPR = confusion_m[4]/(confusion_m[4] + confusion_m[3])
+    rf_FPR = confusion_m[2]/(confusion_m[2] + confusion_m[1])
 
-    ## [1] "Random Forest Accuracy:  0.542857142857143"
+    paste("Random Forest Accuracy: ", rf_acc) 
 
-    paste("Random Forest TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
+    ## [1] "Random Forest Accuracy:  0.549553571428571"
 
-    ## [1] "Random Forest TPR:  0.536675951717734"
+    paste("Random Forest TPR: ", rf_TPR)
 
-    paste("Random Forest FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
+    ## [1] "Random Forest TPR:  0.543198529411765"
 
-    ## [1] "Random Forest FPR:  0.451418744625967"
+    paste("Random Forest FPR: ", rf_FPR)
+
+    ## [1] "Random Forest FPR:  0.444444444444444"
 
 #### 3c) Logistic regression
 
@@ -292,20 +297,24 @@ performs best among all, achieving accuracy, TPR, FPR as followed
 
     ##    
     ##     FALSE TRUE
-    ##   0   707  430
-    ##   1   557  546
+    ##   0   687  450
+    ##   1   539  564
 
-    paste("Logistic Regression Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
+    log_acc = (confusion_m[1] + confusion_m[4])/sum(confusion_m)
+    log_TPR = confusion_m[4]/(confusion_m[4] + confusion_m[3])
+    log_FPR = confusion_m[2]/(confusion_m[2] + confusion_m[1])
 
-    ## [1] "Logistic Regression Accuracy:  0.559375"
+    paste("Logistic Regression Accuracy: ", log_acc) 
 
-    paste("Logistic Regression TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
+    ## [1] "Logistic Regression Accuracy:  0.558482142857143"
 
-    ## [1] "Logistic Regression TPR:  0.559426229508197"
+    paste("Logistic Regression TPR: ", log_TPR)
 
-    paste("Logistic Regression FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
+    ## [1] "Logistic Regression TPR:  0.556213017751479"
 
-    ## [1] "Logistic Regression FPR:  0.440664556962025"
+    paste("Logistic Regression FPR: ", log_FPR)
+
+    ## [1] "Logistic Regression FPR:  0.439641109298532"
 
 #### 3d) stepwise regression
 
@@ -319,16 +328,20 @@ out the code put down the result ran previously,
 
     #confusion_m <- table(stackTest$useful, PredStepLog > 0.5)
     #confusion_m
+    stepwise_acc = (669+529)/sum(669,468,574,529)
+    stepwise_TPR = 529/(529 + 468)
+    stepwise_FPR = 574/(574 + 669)
 
-    paste("Stepwise Logistic Regression Accuracy: ", (669+529)/sum(669,468,574,529)) 
+
+    paste("Stepwise Logistic Regression Accuracy: ", stepwise_acc) 
 
     ## [1] "Stepwise Logistic Regression Accuracy:  0.534821428571429"
 
-    paste("Stepwise Logistic TPR: ", 529/(529 + 468))
+    paste("Stepwise Logistic TPR: ", stepwise_TPR)
 
     ## [1] "Stepwise Logistic TPR:  0.530591775325978"
 
-    paste("Stepwise Logistic FPR: ", 574/(574 + 669))
+    paste("Stepwise Logistic FPR: ",stepwise_FPR)
 
     ## [1] "Stepwise Logistic FPR:  0.46178600160901"
 
@@ -342,29 +355,34 @@ out the code put down the result ran previously,
 
     ##    PredLDA
     ##       0   1
-    ##   0 706 431
-    ##   1 559 544
+    ##   0 689 448
+    ##   1 540 563
 
-    paste("LDA Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
+    LDA_acc = (confusion_m[1] + confusion_m[4])/sum(confusion_m)
+    LDA_TPR = confusion_m[4]/(confusion_m[4] + confusion_m[3])
+    LDA_FPR = confusion_m[2]/(confusion_m[2] + confusion_m[1])
 
-    ## [1] "LDA Accuracy:  0.558035714285714"
+    paste("LDA Accuracy: ", LDA_acc) 
 
-    paste("LDA TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
+    ## [1] "LDA Accuracy:  0.558928571428571"
 
-    ## [1] "LDA TPR:  0.557948717948718"
+    paste("LDA TPR: ", LDA_TPR)
 
-    paste("LDA FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
+    ## [1] "LDA TPR:  0.556874381800198"
 
-    ## [1] "LDA FPR:  0.441897233201581"
+    paste("LDA FPR: ", LDA_FPR)
+
+    ## [1] "LDA FPR:  0.439381611065907"
 
 #### 3f) CART
 
     library(e1071)
-
+    set.seed(456)
     ## train cart
     stackCart = train(useful ~ . , data = stackTrain, method = "rpart", tuneGrid = data.frame(cp=seq(0,0.4,0.001)), trControl = trainControl(method = "cv", number = 5))
 
     stackCART = stackCart$finalModel
+
     prp(stackCART)
 
 ![](StackOverflow_AutoDetect_files/figure-markdown_strict/unnamed-chunk-20-1.png)
@@ -379,20 +397,34 @@ out the code put down the result ran previously,
 
     ##    PredCART
     ##       0   1
-    ##   0 557 580
-    ##   1 472 631
+    ##   0 789 348
+    ##   1 691 412
 
-    paste("CART Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
+    CART_acc = (confusion_m[1] + confusion_m[4])/sum(confusion_m)
+    CART_TPR = confusion_m[4]/(confusion_m[4] + confusion_m[3])
+    CART_FPR = confusion_m[2]/(confusion_m[2] + confusion_m[1])
 
-    ## [1] "CART Accuracy:  0.530357142857143"
+    paste("CART Accuracy: ",CART_acc) 
 
-    paste("CART TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
+    ## [1] "CART Accuracy:  0.536160714285714"
 
-    ## [1] "CART TPR:  0.521056977704377"
+    paste("CART TPR: ", CART_TPR)
 
-    paste("CART FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
+    ## [1] "CART TPR:  0.542105263157895"
 
-    ## [1] "CART FPR:  0.458697764820214"
+    paste("CART FPR: ", CART_FPR)
+
+    ## [1] "CART FPR:  0.466891891891892"
 
 4.Summary
 ---------
+
+    data.frame("Model" = c("Baseline", "Random Forest","Logistic Regression", "Stepwise Regression","LDA","CART"), "Accuracy" = c(base_acc,rf_acc,log_acc, stepwise_acc,LDA_acc,CART_acc), "TPR" = c(NA, rf_TPR, log_TPR,stepwise_TPR, LDA_TPR, CART_TPR), "FPR" = c(NA, rf_FPR, log_FPR,stepwise_FPR, LDA_FPR, CART_FPR))
+
+    ##                 Model  Accuracy       TPR       FPR
+    ## 1            Baseline 0.5075893        NA        NA
+    ## 2       Random Forest 0.5495536 0.5431985 0.4444444
+    ## 3 Logistic Regression 0.5584821 0.5562130 0.4396411
+    ## 4 Stepwise Regression 0.5348214 0.5305918 0.4617860
+    ## 5                 LDA 0.5589286 0.5568744 0.4393816
+    ## 6                CART 0.5361607 0.5421053 0.4668919
