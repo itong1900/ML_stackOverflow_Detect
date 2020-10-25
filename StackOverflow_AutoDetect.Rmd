@@ -247,7 +247,11 @@ library(e1071)
 stackCart = train(useful ~ . , data = stackTrain, method = "rpart", tuneGrid = data.frame(cp=seq(0,0.4,0.001)), trControl = trainControl(method = "cv", number = 5))
 
 stackCART = stackCart$finalModel
+
 prp(stackCART)
+```
+
+```{r}
 PredCART <- predict(stackCART, newdata = stackTest, type = "class")
 ggplot(stackCart$results, aes(x = cp, y = Accuracy)) + geom_point(size = 2) + geom_line() + ylab("CV Accuracy") + theme_bw() + theme(axis.title = element_text(size = 18), axis.text = element_text(size = 18))
 
@@ -260,6 +264,7 @@ paste("CART TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
 
 paste("CART FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
 ```
+
 
 ## 4.Summary
 
