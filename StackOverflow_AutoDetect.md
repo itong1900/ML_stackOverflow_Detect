@@ -268,20 +268,20 @@ performs best among all, achieving accuracy, TPR, FPR as followed
 
     ##    PredictRF
     ##       0   1
-    ##   0 634 503
-    ##   1 504 599
+    ##   0 638 499
+    ##   1 525 578
 
     paste("Random Forest Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
 
-    ## [1] "Random Forest Accuracy:  0.550446428571429"
+    ## [1] "Random Forest Accuracy:  0.542857142857143"
 
     paste("Random Forest TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
 
-    ## [1] "Random Forest TPR:  0.543557168784029"
+    ## [1] "Random Forest TPR:  0.536675951717734"
 
     paste("Random Forest FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
 
-    ## [1] "Random Forest FPR:  0.442882249560633"
+    ## [1] "Random Forest FPR:  0.451418744625967"
 
 #### 3c) Logistic regression
 
@@ -292,20 +292,20 @@ performs best among all, achieving accuracy, TPR, FPR as followed
 
     ##    
     ##     FALSE TRUE
-    ##   0   690  447
-    ##   1   547  556
+    ##   0   707  430
+    ##   1   557  546
 
     paste("Logistic Regression Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
 
-    ## [1] "Logistic Regression Accuracy:  0.55625"
+    ## [1] "Logistic Regression Accuracy:  0.559375"
 
     paste("Logistic Regression TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
 
-    ## [1] "Logistic Regression TPR:  0.554336989032901"
+    ## [1] "Logistic Regression TPR:  0.559426229508197"
 
     paste("Logistic Regression FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
 
-    ## [1] "Logistic Regression FPR:  0.442198868229588"
+    ## [1] "Logistic Regression FPR:  0.440664556962025"
 
 #### 3d) stepwise regression
 
@@ -342,20 +342,20 @@ out the code put down the result ran previously,
 
     ##    PredLDA
     ##       0   1
-    ##   0 693 444
-    ##   1 544 559
+    ##   0 706 431
+    ##   1 559 544
 
     paste("LDA Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
 
-    ## [1] "LDA Accuracy:  0.558928571428571"
+    ## [1] "LDA Accuracy:  0.558035714285714"
 
     paste("LDA TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
 
-    ## [1] "LDA TPR:  0.557328015952144"
+    ## [1] "LDA TPR:  0.557948717948718"
 
     paste("LDA FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
 
-    ## [1] "LDA FPR:  0.439773645917542"
+    ## [1] "LDA FPR:  0.441897233201581"
 
 #### 3f) CART
 
@@ -378,18 +378,21 @@ out the code put down the result ran previously,
     confusion_m
 
     ##    PredCART
-    ##        0    1
-    ##   0 1009  128
-    ##   1  955  148
+    ##       0   1
+    ##   0 557 580
+    ##   1 472 631
 
     paste("CART Accuracy: ", (confusion_m[1] + confusion_m[4])/sum(confusion_m)) 
 
-    ## [1] "CART Accuracy:  0.516517857142857"
+    ## [1] "CART Accuracy:  0.530357142857143"
 
     paste("CART TPR: ", confusion_m[4]/(confusion_m[4] + confusion_m[3]))
 
-    ## [1] "CART TPR:  0.536231884057971"
+    ## [1] "CART TPR:  0.521056977704377"
 
     paste("CART FPR: ", confusion_m[2]/(confusion_m[2] + confusion_m[1]))
 
-    ## [1] "CART FPR:  0.486252545824847"
+    ## [1] "CART FPR:  0.458697764820214"
+
+4.Summary
+---------
