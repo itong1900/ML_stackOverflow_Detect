@@ -25,13 +25,15 @@ There are 7,468 observations, with each observation recording text data associat
 and the body of the associated question and also the score of the question. Table 1 describes the
 dataset in further detail.
 
-Table 1: Description of the dataset ggplot2questions2016 17.csv.
+Table 1: Description of the dataset ggplot2questions2016 17.csv.<br/>
+
+
 Variable     |      Description
 ---------------------------------------------------------
 Title        |   Title text of the question
 ---------------------------------------------------------
 Body         |   Main body text of the question (in html format)
 ---------------------------------------------------------
-Score        |   Score of the question, equal to total number
+Score        |   Score of the question, equal to total number of upvotes minus total number of downvotes
 ----------------------------------------------------------
-of upvotes minus total number of downvotes
+
